@@ -1,30 +1,29 @@
 package cn.bme.hitsz.kevin.coolweather.db;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
+
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
 @Entity
 public class City {
-    @Id(autoincrement = true)
+    @Id
     private Long id;
 
     private String cityName;
 
-    private int privinceId;
+    private long privinceId;
 
     private int cityCode;
 
-    @Generated(hash = 899981801)
-    public City(Long id, String cityName, int privinceId, int cityCode) {
-        this.id = id;
-        this.cityName = cityName;
-        this.privinceId = privinceId;
-        this.cityCode = cityCode;
+    public City() {
     }
 
-    @Generated(hash = 750791287)
-    public City() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCityName() {
@@ -35,11 +34,11 @@ public class City {
         this.cityName = cityName;
     }
 
-    public int getPrivinceId() {
+    public long getPrivinceId() {
         return privinceId;
     }
 
-    public void setPrivinceId(int privinceId) {
+    public void setPrivinceId(long privinceId) {
         this.privinceId = privinceId;
     }
 
@@ -51,11 +50,8 @@ public class City {
         this.cityCode = cityCode;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return this.getCityName()+" "+this.getCityCode()+" "+this.getPrivinceId();
     }
 }

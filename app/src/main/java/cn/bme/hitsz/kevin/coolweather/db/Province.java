@@ -1,17 +1,15 @@
 package cn.bme.hitsz.kevin.coolweather.db;
 
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
+@Entity
 /**
  * 省级表
  */
-@Entity
 public class Province {
-
-    @Id(autoincrement = true)
+    @Id
     private Long id;
 
     private String provinceName;
@@ -19,24 +17,7 @@ public class Province {
     private int provinceCode;
 
 
-    @Generated(hash = 1695957187)
-    public Province(Long id, String provinceName, int provinceCode) {
-        this.id = id;
-        this.provinceName = provinceName;
-        this.provinceCode = provinceCode;
-    }
-
-    @Generated(hash = 1309009906)
     public Province() {
-    }
-
-
-    public String getProvinceName() {
-        return provinceName;
-    }
-
-    public void setProvinceName(String provinceName) {
-        this.provinceName = provinceName;
     }
 
     public Long getId() {
@@ -45,6 +26,14 @@ public class Province {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
     }
 
     public int getProvinceCode() {
