@@ -1,12 +1,11 @@
 package cn.bme.hitsz.kevin.coolweather;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-
-import cn.bme.hitsz.kevin.coolweather.fragments.ChooseAreaFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +26,14 @@ public class MainActivity extends AppCompatActivity {
          transaction.add(R.id.frg_choose_area, chooseAreaFragment);
         transaction.commit();
         */
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                this);
+        if(prefs.getString("weather", null)!=null){
+            Intent intent = new Intent(this, WeatherActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     @Override

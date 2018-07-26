@@ -1,6 +1,7 @@
 package cn.bme.hitsz.kevin.coolweather.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.bme.hitsz.kevin.coolweather.R;
+import cn.bme.hitsz.kevin.coolweather.WeatherActivity;
 import cn.bme.hitsz.kevin.coolweather.db.City;
 import cn.bme.hitsz.kevin.coolweather.db.City_;
 import cn.bme.hitsz.kevin.coolweather.db.Country;
@@ -96,6 +98,12 @@ public class ChooseAreaFragment extends Fragment {
                 }else if( currentLevel == LEVEL_CITY ){
                     citySelected = cities.get(i);
                     queryCountries();
+                }else{
+                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                    String weatherId = countries.get(i).getWeatherId();
+                    intent.putExtra("weather_id", weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });

@@ -1,6 +1,10 @@
 package cn.bme.hitsz.kevin.coolweather.util;
 
 import android.text.TextUtils;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,6 +15,7 @@ import java.util.List;
 import cn.bme.hitsz.kevin.coolweather.db.City;
 import cn.bme.hitsz.kevin.coolweather.db.Country;
 import cn.bme.hitsz.kevin.coolweather.db.Province;
+import cn.bme.hitsz.kevin.coolweather.gson.Weather;
 
 public class Utility {
     /**
@@ -92,5 +97,22 @@ public class Utility {
             }
         }
         return false;
+    }
+
+    /**
+     * 解析和处理服务器返回的天气数据
+     */
+    public static Weather handleWeatherResponse(String response){
+        if( !TextUtils.isEmpty(response)){
+            try{
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+                String weatherContent = jsonArray.getJSONObject(0).toString();
+                return new Gson().fromJson(weatherContent, Weather.class);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
