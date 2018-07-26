@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bme.hitsz.kevin.coolweather.MainActivity;
 import cn.bme.hitsz.kevin.coolweather.R;
 import cn.bme.hitsz.kevin.coolweather.WeatherActivity;
 import cn.bme.hitsz.kevin.coolweather.db.City;
@@ -98,12 +99,20 @@ public class ChooseAreaFragment extends Fragment {
                 }else if( currentLevel == LEVEL_CITY ){
                     citySelected = cities.get(i);
                     queryCountries();
-                }else{
-                    Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                }else if( currentLevel == LEVEL_COUNTRY ){
                     String weatherId = countries.get(i).getWeatherId();
-                    intent.putExtra("weather_id", weatherId);
-                    startActivity(intent);
-                    getActivity().finish();
+                    Log.d("fragment", weatherId);
+                    if(getActivity() instanceof MainActivity){
+                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                        intent.putExtra("weather_id", weatherId);
+                        startActivity(intent);
+                        getActivity().finish();
+                    } else if(getActivity() instanceof WeatherActivity){
+                        WeatherActivity activity = (WeatherActivity) getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.swipeRefreshLayout.setRefreshing(true);
+                        activity.requestWeather(weatherId);
+                    }
                 }
             }
         });
